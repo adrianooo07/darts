@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import schoolLogo from './assets/kando.jpg'
-import './App.css'
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { DartsListPage } from './pages/DartsListPage.jsx';
+import { DartsSinglePage } from './pages/DartsSinglePage.jsx';
+import { CreateDartsPage } from './pages/CreateDartsPage.jsx';
+import { DartsModPage } from './pages/DartsModPage.jsx';
+import { DeleteDartsPage } from './pages/DeleteDartsPage.jsx';
+
+import './App.css';
 
 export const App = () => {
-  const [count, setCount] = useState(0)
+    return (
+        <BrowserRouter>
+            <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-3">
+                <div className="container">
+                    <NavLink to="/" className="navbar-brand fw-bold">
+                        <i className="bi bi-bullseye me-2"></i>Darts
+                    </NavLink>
+                    <div className="navbar-nav">
+                        <NavLink to="/" end className="nav-link">Dartsosok</NavLink>
+                        <NavLink to="/new-darts" className="nav-link">
+                            <i className="bi bi-plus-circle me-1"></i>Új dartsos
+                        </NavLink>
+                    </div>
+                </div>
+            </nav>
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-        <a href="https://www.kkszki.hu" target="_blank"><img src={schoolLogo} alt="Iskola logó" width="200" /></a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          a számláló állása: {count}
-        </button>
-        <p>
-          Módosítsd az <code>src/App.jsx</code>-t és mentsd le, hogy tesztelhesd a HMR-t!
-        </p>
-      </div>
-      <p className="read-the-docs">
-         Kattints a React, a Kandó, vagy a Vite logókra, további információkért!
-      </p>
-    </>
-  )
+            <Routes>
+                <Route path="/" element={<DartsListPage />} />
+                <Route path="/darts/:dartsId" element={<DartsSinglePage />} />
+                <Route path="/new-darts" element={<CreateDartsPage />} />
+                <Route path="/mod-darts/:dartsId" element={<DartsModPage />} />
+                <Route path="/del-darts/:dartsId" element={<DeleteDartsPage />} />
+            </Routes>
+        </BrowserRouter>
+    );
 };
+
+export default App;
